@@ -19,14 +19,11 @@ for i in range(1000):
 	elif weekday ==1 or  weekday == 5:
 		date_array.append(date)
 
-#print date_array
-#print len(date_array)
 
 date_tuple = []
 for i in range(140):
 	fri = date_array[2*i] 
 	mon = date_array[2*i+1]
-	#date_tuple.append(((fri.year,fri.month,fri.day),(mon.year,mon.month,mon.day)))
 	fri_str = '%04d%02d%02d' % (fri.year,fri.month,fri.day)
 	mon_str= '%04d%02d%02d' % (mon.year,mon.month,mon.day)
 	date_tuple.append((mon_str,fri_str))

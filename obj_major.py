@@ -1,6 +1,5 @@
 #!/bin/python
 
-
 class major_obj:
 	def __init__(self,path):
 		self.path = path
@@ -15,7 +14,6 @@ class major_obj:
 		day = str_date[6:8]
 		day = string.atoi(day)
 		return datetime.date(year,month,day)
-
 	def hash_major(self):
 		import os
 		self.file_list = [] 
@@ -30,14 +28,18 @@ class major_obj:
 			if date >= csv_file[0] and date <= csv_file[1]:
 				return csv_file[2]
 		return False
+	def latest_date(self):
+		date_array = [i[0] for i in self.file_list]
+		date_array.sort()
+		return date_array[-1]
 		
 				
 	def list_dir(self):
 		import os
 		print os.listdir(self.path)
 
-
-test = major_obj('./major/')
-test.hash_major()
-import datetime
-print test.search_date(datetime.date(2013,7,3))
+if __name__='__main__':
+	test = major_obj('./major/')
+	test.hash_major()
+	import datetime
+	print test.search_date(datetime.date(2013,7,3))
