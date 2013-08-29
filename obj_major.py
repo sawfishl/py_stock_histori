@@ -38,7 +38,7 @@ class major_obj:
 		import os
 		print os.listdir(self.path)
 
-if __name__='__main__':
+if __name__=='__main__':
 	test = major_obj('./major/')
 	test.hash_major()
 	import datetime
