@@ -1,4 +1,7 @@
-class major_folder:
+#!/bin/python
+
+
+class major_obj:
 	def __init__(self,path):
 		self.path = path
 		self.hash_major()
@@ -12,6 +15,7 @@ class major_folder:
 		day = str_date[6:8]
 		day = string.atoi(day)
 		return datetime.date(year,month,day)
+
 	def hash_major(self):
 		import os
 		self.file_list = [] 
@@ -23,18 +27,17 @@ class major_folder:
 				self.file_list.append((start_date,end_date,csv_file))
 	def search_date(self,date):
 		for csv_file in self.file_list:
-			if date >= csv_file[0]  and date <= csv_file[1]:
-					return csv_file[2]
+			if date >= csv_file[0] and date <= csv_file[1]:
+				return csv_file[2]
 		return False
+		
+				
 	def list_dir(self):
 		import os
 		print os.listdir(self.path)
 
-class major_file:
-	def __init__(self,path,filename):
 
-
-test = major_folder('./major/')
+test = major_obj('./major/')
+test.hash_major()
 import datetime
-date = datetime.date(2013,8,7)
-print test.search_date(date)
+print test.search_date(datetime.date(2013,7,3))
