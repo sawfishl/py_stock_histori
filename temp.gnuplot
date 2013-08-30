@@ -22,8 +22,9 @@ set terminal pngcairo font "arial,10" size 640,480
 		set size 1.0,0.3
 		set origin 0.0,0.0
 		set tmargin 0
+		set style fill solid
+		set boxwidth 0.5 relative
 
-
-		plot './new_test/2883.week' using 1:6 with  impulses lt 3
+		plot './new_test/2883.week' using 1:6 with  boxes lt 3
 		unset multiplot 
 		

@@ -2,9 +2,12 @@
 import datetime
 #datetime.date(2010,6,16).isocalendar()[1]
 
+from obj_major import *
+
 class symbol_obj:
-	def __init__(self,path,symbol):
+	def __init__(self,path,major_path,symbol):
 		self.path = path
+		self.major_path=major_path
 		self.symbol = symbol	
 	def make_url(self,ticker_symbol):
 		base_url = "http://ichart.finance.yahoo.com/table.csv?s="
@@ -67,6 +70,8 @@ class symbol_obj:
 		struct = self.struct_week(100,folder+filename)
 		weekfile = open(folder+filename.split('.')[0]+'.week','wn')
 		for line in struct:
+			#query major_obj
+			
 			#write ***.week file 
 			weekfile.write('%s,%f,%f,%f,%f,%f\n' % self.week_summary(line))
 		weekfile.close()
@@ -98,9 +103,10 @@ class symbol_obj:
 		set size 1.0,0.3
 		set origin 0.0,0.0
 		set tmargin 0
+		set style fill solid
+		set boxwidth 0.5 relative
 
-
-		plot '%s%s' using 1:6 with  impulses lt 3
+		plot '%s%s' using 1:6 with  boxes lt 3
 		unset multiplot 
 		"""
 		script = template % (folder,output,start_date,end_date,folder,filename,folder,filename)
@@ -119,9 +125,10 @@ class symbol_obj:
 		return 0
 
 if  __name__=='__main__':
-	folder = './new_test/'
+	csv_path = './new_test/'
+	major_path ='./major/'
 	sym_cluster = ('2330','2498','0050','3481','2344','2883')
-	obj_cluster = [symbol_obj(folder,sym+'.tw') for sym in sym_cluster]
+	obj_cluster = [symbol_obj(csv_path,major_path,sym+'.tw') for sym in sym_cluster]
 	
 	for obj in obj_cluster:
 		obj.update_symbol()
