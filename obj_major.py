@@ -2,8 +2,8 @@
 
 class major_obj:
 	def __init__(self,path):
-			self.path = path
-			self.hash_major()
+		self.path = path
+		self.hash_major()
 	def str_2_date(self,str_date):
 		import datetime
 		import string
@@ -92,7 +92,7 @@ class major_file_op:
 			data_set = line.split(',')
 			if len(data_set) >= 1 and data_set[0].find(symbol) >=0:
 				vec = (1,3,5,7,9,11)
-				return [self.parse_num(line.split('"')[i]) for i in vec]
+				return [data_set[0],data_set[1]]+[self.parse_num(line.split('"')[i]) for i in vec]
 	
 
 if __name__=='__main__':
