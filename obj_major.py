@@ -2,8 +2,8 @@
 
 class major_obj:
 	def __init__(self,path):
-		self.path = path
-		self.hash_major()
+			self.path = path
+			self.hash_major()
 	def str_2_date(self,str_date):
 		import datetime
 		import string
@@ -29,9 +29,9 @@ class major_obj:
 				return csv_file[2]
 		return False
 	def latest_date(self):
-		#return latest monday
 		date_array = [i[0] for i in self.file_list]
 		date_array.sort()
+		#return lateest monday
 		return date_array[-1]
 	def oldest_date(self):
 		date_array = [i[0] for i in self.file_list]
@@ -67,19 +67,38 @@ class major_obj:
 		os.remove(self.path + self.search_date(self.latest_date()) )
 
 		for date_pair in date_tuple:
-			print 'Downloading date between'+date_pair[0]+'-'+date_pair[1]
+			print 'Downloading date between'+date_pair[1]+'-'+date_pair[1]
 			urllib.urlretrieve(url % date_pair,self.path+'%s-%s.csv' % (date_pair[0],date_pair[1]))
 			print 'Download done!'
-			
-
-
-				
+		self.harsh_major()
 	def list_dir(self):
 		import os
 		print os.listdir(self.path)
+
+class major_file_op:
+	def __init__(self,path,filename):
+		self.path = path
+		self.filename = filename
+		major_file = open(path+filename,'r')
+		self.major_lines = major_file.readlines()
+		major_file.close()
+	def parse_num(self,num_str):
+		import string
+		#8,558,000 -> 8558000
+		num_join = string.join(num_str.split(','),'')
+		return string.atoi(num_join)
+	def symbol_query(self,symbol):
+		for line in self.major_lines:
+			data_set = line.split(',')
+			if len(data_set) >= 1 and data_set[0].find(symbol) >=0:
+				vec = (1,3,5,7,9,11)
+				return [self.parse_num(line.split('"')[i]) for i in vec]
+	
 
 if __name__=='__main__':
 	test = major_obj('./major/')
 	test.hash_major()
 	import datetime
 	print test.search_date(datetime.date(2013,7,3))
+	july_3 = major_file_op('./major/',test.search_date(datetime.date(2013,7,3)))
+	print july_3.symbol_query('0050')
