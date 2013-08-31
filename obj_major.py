@@ -61,16 +61,17 @@ class major_obj:
 			date_tuple.append((mon_str,fri_str))
 			if mon ==self.latest_date():
 				break
-		print date_tuple
 		#kill latest date (may not complete)
 		import os
 		os.remove(self.path + self.search_date(self.latest_date()) )
-
+		import timeit
 		for date_pair in date_tuple:
-			print 'Downloading date between'+date_pair[1]+'-'+date_pair[1]
+			print 'Retrieving major data '+date_pair[1]+'-'+date_pair[1]
+			start = timeit.default_timer()
 			urllib.urlretrieve(url % date_pair,self.path+'%s-%s.csv' % (date_pair[0],date_pair[1]))
-			print 'Download done!'
-		self.harsh_major()
+			stop = timeit.default_timer()
+			print 'Retrieving time %f s' % (stop-start)
+		self.hash_major()
 	def list_dir(self):
 		import os
 		print os.listdir(self.path)
@@ -93,7 +94,7 @@ class major_file_op:
 			if len(data_set) >= 1 and data_set[0].find(symbol) >=0:
 				vec = (1,3,5,7,9,11)
 				return [data_set[0],data_set[1]]+[self.parse_num(line.split('"')[i]) for i in vec]
-	
+		return False	
 
 if __name__=='__main__':
 	test = major_obj('./major/')
