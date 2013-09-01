@@ -4,6 +4,7 @@ class major_obj:
 	def __init__(self,path):
 		self.path = path
 		self.hash_major()
+		self.symbol_list()
 	def str_2_date(self,str_date):
 		import datetime
 		import string
@@ -37,6 +38,20 @@ class major_obj:
 		date_array = [i[0] for i in self.file_list]
 		date_array.sort()
 		return date_array[0]
+	def symbol_list(self):
+		sorted_list = sorted(self.file_list,key=lambda date:date[1])
+		major_file = open(self.path+sorted_list[0][2],'r')
+		#avoid first header line
+		major_file.readline()
+		major_file.readline()
+		##
+		major_lines = major_file.readlines()
+		major_file.close()
+		self.symbols = []
+		for line in major_lines:	
+			sym = line.split(',')[0].split(' ')[0]
+			if len(sym) <=4:
+				self.symbols.append(sym)
 	def update_major_file(self):
 		import urllib
 		url = 'http://www.twse.com.tw/ch/trading/fund/TWT54U/TWT54U_print.php?begin_date=%s&end_date=%s&report_type=&language=ch&select2=ALLBUT0999&save=csv'

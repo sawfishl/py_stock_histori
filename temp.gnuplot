@@ -1,5 +1,5 @@
 set terminal pngcairo font "arial,10" size 640,480
-		set output './new_test/2883.png'
+		set output './symbols/2007.png'
 		set xdata time
 
 		set timefmt "%Y-%m-%d"
@@ -15,7 +15,7 @@ set terminal pngcairo font "arial,10" size 640,480
 		set size 1,0.7
 		set origin 0,0.3
 
-		plot './new_test/2883.week' using 1:2:4:3:5 with candlesticks  lt 1 
+		plot './symbols/2007.week' using 1:2:4:3:5 with candlesticks  lt 1 
 
 		set bmargin
 		set format x
@@ -25,6 +25,6 @@ set terminal pngcairo font "arial,10" size 640,480
 		set style fill solid
 		set boxwidth 0.5 relative
 
-		plot './new_test/2883.week' using 1:6 with  boxes lt 3
+		plot './symbols/2007.week' using 1:6 with  boxes lt 3
 		unset multiplot 
 		

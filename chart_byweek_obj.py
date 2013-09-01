@@ -143,17 +143,18 @@ class symbol_obj:
 
 if  __name__=='__main__':
 	import obj_major
-	csv_path = './new_test/'
+	import timeit
+	csv_path = './symbols/'
 	major_path ='./major/'
 	obj = obj_major.major_obj(major_path)
 	obj.update_major_file()
-	sym_cluster = ('006203','0057','2330','2498','0050','3481','2344','2883')
+	#sym_cluster = ('006203','0057','2330','2498','0050','3481','2344','2883')
 	#sym_cluster = ('2330','2498')
+	sym_cluster = tuple(obj.symbols[0:200])
 	obj_cluster = [symbol_obj(csv_path,major_path,sym+'.tw') for sym in sym_cluster]
-	
+	start = timeit.default_timer()	
 	for obj in obj_cluster:
 		obj.update_symbol()
 		obj.cvs_to_png()
-
-
-	
+	stop = timeit.default_timer()	
+	print 'Total processing time %fs' % (stop-start)
