@@ -141,6 +141,22 @@ class symbol_obj:
 		os.system('gnuplot %s' % script_file)
 		return 0
 
+class week_file_op:
+	def __init__(self,path,week_file):
+		self.path = path
+		self.week_file=week_file
+		week = open(path+week_file,'r')	
+		lines = week.readlines()
+		week.close()
+		self.week_table = []
+		for one_line in lines:
+			temp = one_line.split(',')
+			parsed = [temp[0]]+[float(i) for i in temp[1:6]]+[int(j) for j in temp[6:]]
+			self.week_table.append(parsed)
+			
+
+
+
 if  __name__=='__main__':
 	import obj_major
 	import timeit
@@ -158,3 +174,4 @@ if  __name__=='__main__':
 		obj.cvs_to_png()
 	stop = timeit.default_timer()	
 	print 'Total processing time %fs' % (stop-start)
+
