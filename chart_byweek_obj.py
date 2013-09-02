@@ -153,11 +153,52 @@ class week_file_op:
 			temp = one_line.split(',')
 			parsed = [temp[0]]+[float(i) for i in temp[1:6]]+[int(j) for j in temp[6:]]
 			self.week_table.append(parsed)
+		self.week_table.reverse()
+		self.week_table = zip(*self.week_table)
+		self.index = {
+			'date':0,
+			'open':1,
+			'high':2,
+			'low':3,
+			'close':4,
+			'vol':5,
+			'f_overbuy':6,
+			'f_oversell':7,
+			'f_total':8,
+			'i_overbuy':9,
+			'i_oversell':10,
+			'i_total':11,
+			's_overbuy':12,
+			's_oversell':13,
+			's_total':14
+		}
+	def accmulation(self,item):
+		target = self.week_table[self.index[item]]	
+		accmu_list = []
+		sum = 0
+		for num in target:
+			sum = num + sum
+			accmu_list.append(sum)
 			
+		return accmu_list
+	def mean_price(self,price,item):
+		total = 0
+		avg = 0
+		avg_list = []
+		price_list = self.week_table[self.index[price]]
+		item_list = self.week_table[self.index[item]]
+		for i in range(len(item_list)):
+			print avg,price_list[i],item_list[i]
+			if item_list[i] > 0:
+				avg = (avg * total + price_list[i] * item_list[i]) / (total+item_list[i])
+				avg_list.append(avg)
+				total = total + item_list[i]
+			else:
+				avg_list.append(avg)
+		return avg_list
 
 
-
-if  __name__=='__main__':
+if  __name__=='__mainn__':
 	import obj_major
 	import timeit
 	csv_path = './symbols/'
@@ -174,4 +215,7 @@ if  __name__=='__main__':
 		obj.cvs_to_png()
 	stop = timeit.default_timer()	
 	print 'Total processing time %fs' % (stop-start)
+if __name__=='__main__':
+	a = week_file_op('./symbols/','0050.week')
+	print a.mean_price('close','f_total')
 
