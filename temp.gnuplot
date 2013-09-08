@@ -1,9 +1,12 @@
-set terminal pngcairo font "arial,10" size 640,480
-		set output './symbols/2007.png'
+set terminal pngcairo font "arial,10" size 720,720
+		output = './symbols/9958.png'
+		file = './symbols/9958.week'
+		set title '9958'
+		set output output
 		set xdata time
 
 		set timefmt "%Y-%m-%d"
-		set xrange ["2011-10-03":"2013-08-26"]
+		set xrange ["2011-10-11":"2013-09-02"]
 		set yrange [*:*]
 		set datafile separator ","
 		set multiplot
@@ -11,20 +14,49 @@ set terminal pngcairo font "arial,10" size 640,480
 		set rmar 1
 		set lmar 10
 		set boxwidth 0.6 relative
+		set grid ytics 
+		set bmargin 0
 
-		set size 1,0.7
-		set origin 0,0.3
+		set size 1,0.4
+		set origin 0,0.6
+		unset xtics
 
-		plot './symbols/2007.week' using 1:2:4:3:5 with candlesticks  lt 1 
-
-		set bmargin
+		plot file using 1:2:4:3:5 with candlesticks  lt 1 
+		set bmargin 0
 		set format x
-		set size 1.0,0.3
-		set origin 0.0,0.0
+		set size 1,0.2
+		set origin 0.0,0.4
 		set tmargin 0
 		set style fill solid
 		set boxwidth 0.5 relative
+		unset xtics
+		unset title
+		plot file using 1:6 with  boxes lt 3
+		set bmargin 0
+		set format x
+		set size 1,0.2
+		set origin 0.0,0.2
+		set tmargin 0
+		set boxwidth 0.5 relative
+		unset title
 
-		plot './symbols/2007.week' using 1:6 with  boxes lt 3
+
+		plot file using 1:16 with line lt rgb 'red',			file using 1:17 with line lt rgb 'blue',			file using 1:18 with line lt rgb 'green'
+		set bmargin
+		set format x
+		set size 1,0.2
+		set origin 0.0,0.0
+		set tmargin 0
+		set boxwidth 0.5 relative
+
+		unset title
+		set xtics
+		plot file using 1:19 with line lt rgb 'red',			file using 1:20 with line lt rgb 'blue',			file using 1:21 with line lt rgb 'green'
+
+
 		unset multiplot 
+
+		
+
+	
 		
