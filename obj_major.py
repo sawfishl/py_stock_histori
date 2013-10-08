@@ -65,8 +65,9 @@ class major_obj:
 			weekday = date.isocalendar()[2]
 			if i == 0 and weekday <=5 and weekday >=1:
 				date_array.append(date)
-			elif weekday ==1 or  weekday == 5:
+			if weekday ==1 or  weekday == 5:
 				date_array.append(date)
+		#print date_array
 		date_tuple = []
 		for i in range(140):
 			fri = date_array[2*i] 
@@ -87,6 +88,11 @@ class major_obj:
 			stop = timeit.default_timer()
 			print 'Retrieving time %f s' % (stop-start)
 		self.hash_major()
+		#check if latest file empty, if it's empty delete it
+		if os.lstat(self.path+self.search_date(self.latest_date()))[6]< 200:
+			os.remove(self.path + self.search_date(self.latest_date()) )
+			self.hash_major()
+		
 	def list_dir(self):
 		import os
 		print os.listdir(self.path)
@@ -95,7 +101,7 @@ class major_file_op:
 	def __init__(self,path,filename):
 		self.path = path
 		self.filename = filename
-		major_file = open(path+filename,'r')
+		major_file = open(self.path+self.filename,'r')
 		self.major_lines = major_file.readlines()
 		major_file.close()
 	def parse_num(self,num_str):
