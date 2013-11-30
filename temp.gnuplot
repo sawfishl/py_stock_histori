@@ -6,7 +6,7 @@ set terminal pngcairo font "arial,10" size 720,720
 		set xdata time
 
 		set timefmt "%Y-%m-%d"
-		set xrange ["2011-11-07":"2013-09-30"]
+		set xrange ["2012-01-02":"2013-11-25"]
 		set yrange [*:*]
 		set datafile separator ","
 		set multiplot
